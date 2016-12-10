@@ -20,20 +20,5 @@
 		<p>${eslogan}</p>
 	</div>
 	
-	<section class="container"> 
-              <div class="row"> 
-              <c:forEach var="producto" items="${productos}">
-                 <div class="col-sm-6 col-md-3" style="padding-bottom: 15px"> 
-                    <div class="thumbnail"> 
-                       <div class="caption"> 
-                          <h3>${producto.nombre}</h3> 
-                          <p>${producto.descripcion}</p> 
-           <p>${producto.precio} EUR</p> 
-                       </div> 
-                    </div> 
-                 </div> 
-                 </c:forEach>
-              </div> 
-           </section> 
 </body>
 </html>

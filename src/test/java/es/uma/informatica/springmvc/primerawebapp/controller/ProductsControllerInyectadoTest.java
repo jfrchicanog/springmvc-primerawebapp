@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -20,10 +20,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import es.uma.informatica.springmvc.primerawebapp.config.WebApplicationContextConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @ContextConfiguration(classes=WebApplicationContextConfig.class)
 @WebAppConfiguration
-//@ActiveProfiles("test")
+@ActiveProfiles("test")
 public class ProductsControllerInyectadoTest {
 	@Autowired 
 	private WebApplicationContext wac;

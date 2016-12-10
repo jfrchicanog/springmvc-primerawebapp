@@ -15,21 +15,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
 import es.uma.informatica.springmvc.primerawebapp.exceptions.NoExisteCategoriaException;
+import es.uma.informatica.springmvc.primerawebapp.service.ProductService;
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.integration.junit4.JMockit;
 
-//@RunWith(JMockit.class)
+@RunWith(JMockit.class)
 public class ProductsControllerTest {
 
 	@Test
-	public void testProductsInModel(@Mocked Model model) {
+	public void testProductsInModel(@Mocked Model model, @Mocked ProductService service) {
 		List<Producto> productos = getListaProductos();
-		ProductsController controller = new ProductsController();
-		ReflectionTestUtils.setField(controller, "productos", productos);
+		
 		new Expectations(){{
+			service.findAllProducts(); result=productos;
 			model.addAttribute(anyString, productos.get(0));
 		}};
+		
+		ProductsController controller = new ProductsController();
+		ReflectionTestUtils.setField(controller, "productsService", service);
+		
 		
 		String view = controller.oneProduct(1L, model);
 		Assert.assertEquals("producto", view);
