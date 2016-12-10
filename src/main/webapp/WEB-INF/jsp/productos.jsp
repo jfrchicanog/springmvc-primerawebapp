@@ -49,6 +49,9 @@
 				</div>
 			</c:forEach>
 		</div>
+		<div class="row">
+		<a class="btn btn-primary" href='<spring:url value="/productos/add"/>'>Añadir producto</a>
+		</div>
 	</section>
 </body>
 </html>

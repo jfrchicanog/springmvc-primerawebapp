@@ -2,6 +2,7 @@ package es.uma.informatica.springmvc.primerawebapp.config;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
@@ -13,10 +14,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
@@ -56,7 +57,14 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 		result.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 	    result.setJpaDialect(new HibernateJpaDialect());
 	    result.setPackagesToScan("es.uma.informatica.springmvc.primerawebapp.domain");
-		
+	    result.setJpaProperties(jpaProviderProperties());
+	    
+		return result;
+	}
+	
+	private Properties jpaProviderProperties() {
+		Properties result = new Properties();
+		result.put("javax.persistence.schema-generation.database.action", "create");
 		return result;
 	}
 	
@@ -73,11 +81,13 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 	@Bean 
 	@Profile("default")
 	public DataSource realDataSource() throws NamingException {
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder(); 
-		EmbeddedDatabase db = builder 
-				.setType(EmbeddedDatabaseType.HSQL) 
-				.build(); 
-		return db; 
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sample?zeroDateTimeBehavior=convertToNull");
+		dataSource.setUsername("app");
+		dataSource.setPassword("app");
+		return dataSource;
+
 		/*
 		JndiTemplate jndi = new JndiTemplate();
         return (DataSource) jndi.lookup("java:/ecplus");*/

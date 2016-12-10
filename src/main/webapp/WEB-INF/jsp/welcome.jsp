@@ -19,6 +19,8 @@
 		<h1>${saludo}</h1>
 		<p>${eslogan}</p>
 	</div>
-	
+	<div class="container">
+	<a class="btn btn-primary" href='<c:url value="/productos"/>'>Productos</a>
+	</div>
 </body>
 </html>

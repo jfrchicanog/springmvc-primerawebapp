@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,14 +17,13 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public List<Producto> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Producto> query = em.createNamedQuery("Producto.findAll", Producto.class);
+		return query.getResultList();
 	}
 
 	@Override
 	public void save(Producto product) {
-		// TODO Auto-generated method stub
-
+		em.persist(product);
 	}
 
 }
