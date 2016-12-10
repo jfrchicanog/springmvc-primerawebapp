@@ -1,10 +1,8 @@
 package es.uma.informatica.springmvc.primerawebapp.repositories;
 
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
 
-public interface ProductRepository {
-	public List<Producto> findAll();
-	public void save(Producto product);
+public interface ProductRepository extends CrudRepository<Producto,Long>{
 }
