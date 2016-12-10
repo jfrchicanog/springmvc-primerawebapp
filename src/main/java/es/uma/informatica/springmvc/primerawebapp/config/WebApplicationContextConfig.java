@@ -3,6 +3,7 @@ package es.uma.informatica.springmvc.primerawebapp.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -15,6 +16,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
@@ -59,12 +61,26 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean 
+	@Profile("test")
 	public DataSource dataSource() { 
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder(); 
 		EmbeddedDatabase db = builder 
 				.setType(EmbeddedDatabaseType.HSQL) 
 				.build(); 
 		return db; 
+	} 
+	
+	@Bean 
+	@Profile("default")
+	public DataSource realDataSource() throws NamingException {
+		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder(); 
+		EmbeddedDatabase db = builder 
+				.setType(EmbeddedDatabaseType.HSQL) 
+				.build(); 
+		return db; 
+		/*
+		JndiTemplate jndi = new JndiTemplate();
+        return (DataSource) jndi.lookup("java:/ecplus");*/
 	} 
 	
 	@Override 
