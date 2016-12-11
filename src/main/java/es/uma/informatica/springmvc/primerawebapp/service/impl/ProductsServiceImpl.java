@@ -31,4 +31,9 @@ public class ProductsServiceImpl implements ProductService {
 		repositorio.save(product);
 	}
 
+	@Override
+	public Producto findOne(Long id) {
+		return repositorio.findOne(id);
+	}
+
 }
