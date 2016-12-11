@@ -11,8 +11,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
 import es.uma.informatica.springmvc.primerawebapp.service.ProductService;
-import mockit.Expectations;
-import mockit.Mocked;
 
 @Configuration
 @EnableWebMvc 
@@ -31,6 +29,12 @@ public class TestApplicationContextConfig {
 			@Override
 			public List<Producto> findAllProducts() {
 				return productos;
+			}
+
+			@Override
+			public Producto findOne(Long id) {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 	}
