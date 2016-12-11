@@ -4,11 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Producto.findAll", query="select p from Producto p")
 })
+@XmlRootElement
 public class Producto {
 	@Id
 	private Long id;
