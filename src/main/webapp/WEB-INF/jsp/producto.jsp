@@ -23,9 +23,19 @@
 
 	<section class="container">
 		<div class="row">
-			<a class="btn btn-primary" href="<spring:url value="/productos"/>">
-				Productos
-			</a>
+				<div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+					<div class="thumbnail">
+						<div class="caption">
+							<h3>${producto.nombre}</h3>
+							<p>${producto.descripcion}</p>
+							<p>${producto.categoria}</p>
+							<p>${producto.precio}EUR</p>
+							<p>${producto.id}</p>
+							<a href="<spring:url value="/productos"/>">
+							<span class="glyphicon glyphicon-hand-left"/>Atrás</a>
+						</div>
+					</div>
+				</div>
 		</div>
 	</section>
 </body>

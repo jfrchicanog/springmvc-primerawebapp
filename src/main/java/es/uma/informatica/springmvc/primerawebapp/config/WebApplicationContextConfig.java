@@ -12,7 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import es.uma.informatica.springmvc.primerawebapp.domain.Producto; 
+import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
+
+
 
 @Configuration 
 @EnableWebMvc 
@@ -41,6 +43,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 		producto.setNombre("Leche");
 		producto.setDescripcion("Pura leche de vaca. Procede del Valle de los Pedroches");
 		producto.setPrecio(1.50);
+		producto.setId(1L);
+		producto.setCategoria("Lácteo");
 		
 		resultado.add(producto);
 		
@@ -48,6 +52,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 		producto.setNombre("Atún");
 		producto.setDescripcion("Conserva de atún de 250gr.");
 		producto.setPrecio(1.00);
+		producto.setId(2L);
+		producto.setCategoria("Conserva");
 		
 		resultado.add(producto);
 		

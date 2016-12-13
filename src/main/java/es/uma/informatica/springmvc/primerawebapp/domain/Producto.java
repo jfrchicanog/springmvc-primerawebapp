@@ -5,6 +5,14 @@ public class Producto {
 	private String descripcion;
 	private Double precio;
 	private Long id;
+	private String categoria;
+	
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
 	public String getNombre() {
 		return nombre;
 	}
