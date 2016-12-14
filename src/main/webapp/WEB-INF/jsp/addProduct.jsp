@@ -1,6 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
@@ -11,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	href="<spring:url value="/css/bootstrap.min.css"/>">
 <title>Supermercados Albosque</title>
 </head>
 <body>

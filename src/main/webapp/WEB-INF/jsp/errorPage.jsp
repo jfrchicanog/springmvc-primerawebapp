@@ -12,7 +12,7 @@
 	<div class="jumbotron">
 		<h1>Error</h1>
 		<div class="alert alert-warning">
-			Sentimos informarle de que la categoría que ha indicado (<c:out value="${categoria}"/>) no existe
+			${error}
 		</div>
 	</div>
 

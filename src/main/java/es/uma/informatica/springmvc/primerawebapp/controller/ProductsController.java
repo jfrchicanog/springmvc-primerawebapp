@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
 import es.uma.informatica.springmvc.primerawebapp.exceptions.NoExisteCategoriaException;
+import es.uma.informatica.springmvc.primerawebapp.exceptions.ProductoNoExisteException;
 import es.uma.informatica.springmvc.primerawebapp.service.ProductService; 
 
 @Controller 
@@ -28,6 +29,7 @@ public class ProductsController {
 	
 	@RequestMapping("/productos") 
 	public String allProducts(Model model) {
+		//model.addAttribute("saludo", "¡Bienvenidos a Supermercados Albosque");
 		model.addAttribute("productos", productsService.findAllProducts());
 		return "productos"; 
 	}
@@ -37,6 +39,7 @@ public class ProductsController {
 		List<Producto> products = productsService.findAllProducts().stream()
 				.filter(p->p.getCategoria().equals(categoria))
 				.collect(Collectors.toList());
+		
 		if (products.isEmpty()) {
 			throw new NoExisteCategoriaException(categoria);
 		} else {
@@ -48,8 +51,13 @@ public class ProductsController {
 	@RequestMapping("/producto") 
 	public String oneProduct(@RequestParam("id") Long id, Model model) {
 		Optional<Producto> producto = productsService.findAllProducts().stream()
-				.filter(p->p.getId()==id)
-				.findAny();
+				.filter(p->p.getId().equals(id))
+				.findFirst();
+		System.out.println("Paso: "+producto.isPresent());
+		if (!producto.isPresent()) {
+			throw new ProductoNoExisteException(id);
+		}
+		
 		model.addAttribute("producto", producto.isPresent()?producto.get():null);
 		return "producto"; 
 	}
@@ -72,7 +80,29 @@ public class ProductsController {
 	public ModelAndView error(HttpServletRequest request, NoExisteCategoriaException exception) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("errorPage");
-		modelAndView.addObject("categoria", exception.getCategoria());
+		modelAndView.addObject("error", 
+				"Sentimos informarle de que la categoría solicitada ("+
+						exception.getCategoria()+") no existe");
 		return modelAndView;
 	}
+	
+	@ExceptionHandler(ProductoNoExisteException.class)
+	public ModelAndView errorProducto(HttpServletRequest request, ProductoNoExisteException exception) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("errorPage");
+		modelAndView.addObject("error", 
+				"Sentimos informarle de que el producto con ID="+
+						exception.getId()+") no existe");
+		return modelAndView;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 } 

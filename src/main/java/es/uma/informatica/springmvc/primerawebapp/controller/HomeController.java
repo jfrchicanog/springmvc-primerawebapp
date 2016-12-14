@@ -14,6 +14,6 @@ public class HomeController {
 		model.addAttribute("saludo", "¡Bienvenidos a Supermercados Albosque!"); 
 		model.addAttribute("eslogan", "Compre Albosque, compre al mejor"); 
 	
-		return "welcome"; 
+		return "productos"; 
 	} 
 } 

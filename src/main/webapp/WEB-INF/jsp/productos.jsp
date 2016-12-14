@@ -24,7 +24,7 @@
 	</section>
 
 	<div class="jumbotron">
-		<h1>Productos</h1>
+		<h1>${saludo}</h1>
 	</div>
 
 	<section class="container">
