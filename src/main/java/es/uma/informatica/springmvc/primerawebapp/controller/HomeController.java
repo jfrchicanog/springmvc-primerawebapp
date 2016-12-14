@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import es.uma.informatica.springmvc.primerawebapp.domain.Producto; 
+import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
+import es.uma.informatica.springmvc.primerawebapp.service.ProductoService; 
 
 @Controller 
 public class HomeController {
 	@Autowired
-	private List<Producto> productos; 
+	private ProductoService productoService;
 
 	@RequestMapping("/productos") 
 	public ModelAndView productos() {
@@ -25,7 +26,7 @@ public class HomeController {
 		
 		modelAndView.addObject("saludo", "¡Bienvenidos a Supermercados Albosque!"); 
 		modelAndView.addObject("eslogan", "Compre Albosque, compre al mejor"); 
-		modelAndView.addObject("productos", productos);
+		modelAndView.addObject("productos", productoService.findAll());
 		
 		modelAndView.setViewName("productos");
 
@@ -39,7 +40,7 @@ public class HomeController {
 		modelAndView.addObject("saludo", "¡Bienvenidos a Supermercados Albosque!"); 
 		modelAndView.addObject("eslogan", "Compre Albosque, compre al mejor"); 
 		
-		List<Producto> productosFiltrados = productos.stream()
+		List<Producto> productosFiltrados = productoService.findAll().stream()
 				.filter(p->p.getCategoria().equalsIgnoreCase(categoria))
 				.collect(Collectors.toList());
 		
@@ -54,7 +55,7 @@ public class HomeController {
 	public ModelAndView producto(@RequestParam("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		Optional<Producto> producto = productos.stream()
+		Optional<Producto> producto = productoService.findAll().stream()
 		.filter(p->p.getId()==id)
 		.findFirst();
 		
