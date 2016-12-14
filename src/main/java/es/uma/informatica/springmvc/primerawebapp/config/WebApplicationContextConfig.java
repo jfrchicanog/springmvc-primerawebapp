@@ -1,6 +1,7 @@
 package es.uma.informatica.springmvc.primerawebapp.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -27,6 +28,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -38,7 +40,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import es.uma.informatica.springmvc.primerawebapp.domain.Producto; 
+import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
+import es.uma.informatica.springmvc.primerawebapp.domain.Usuario; 
 
 @Configuration 
 @EnableWebMvc 
@@ -182,7 +185,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 	@Bean(name = "validator") 
     public LocalValidatorFactoryBean validator() { 
        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean(); 
-       bean.setValidationMessageSource(messageSource()); 
+       //bean.setValidationMessageSource(messageSource()); 
        return bean; 
     } 
 
@@ -190,5 +193,12 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 	public Validator getValidator(){ 
 		return validator(); 
 	} 
+	
+	@Bean
+	public List<Usuario> usuarios() {
+		return Arrays.asList(
+				new Usuario("pepe", "1234"), 
+				new Usuario("Manolo", "5678"));
+	}
 } 
 	

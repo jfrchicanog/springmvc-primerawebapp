@@ -46,6 +46,7 @@
 					<div class="col-lg-10">
 						<form:input id="nombre" type="text" path="nombre"
 							class="form:input-large" />
+							<form:errors path="nombre" cssClass="text-danger"/>
 					</div>
 				</div>
 

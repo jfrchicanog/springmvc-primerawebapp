@@ -5,10 +5,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,17 +65,36 @@ public class ProductsController {
 	}
 	
 	@RequestMapping(value = "/productos/add", method = RequestMethod.GET) 
-	public String getAddNewProductForm(Model model) { 
-		Producto newProduct = new Producto(); 
-		model.addAttribute("nuevoProducto", newProduct); 
-		return "addProduct"; 
-	} 
+	public String getAddNewProductForm(Model model, HttpServletRequest request) { 
+		if (comprobarAutenticacion(request)) {
+			Producto newProduct = new Producto(); 
+			model.addAttribute("nuevoProducto", newProduct); 
+			return "addProduct";
+		} else {
+			model.addAttribute("error", "No tiene permiso para realizar esta operación");
+			return "errorPage";
+		}
+	}
 
 	@RequestMapping(value = "/productos/add", method = RequestMethod.POST) 
-	public String processAddNewProductForm(@ModelAttribute("nuevoProducto") Producto newProduct) {
-		productsService.save(newProduct);
-		return "redirect:/productos"; 
+	public String processAddNewProductForm(Model model, @ModelAttribute("nuevoProducto") @Valid Producto newProduct,
+			BindingResult result, HttpServletRequest request) {
+		
+		if (comprobarAutenticacion(request)) {
+			if (result.hasErrors()) {
+				return "addProduct";
+			}
+			productsService.save(newProduct);
+			return "redirect:/productos";
+		} else {
+			model.addAttribute("error", "No tiene permiso para realizar esta operación");
+			return "errorPage";
+		}
 	}
+	
+	private boolean comprobarAutenticacion(HttpServletRequest request) {
+		return request.getSession().getAttribute("user") != null;
+	} 
 	
 	
 	@ExceptionHandler(NoExisteCategoriaException.class)

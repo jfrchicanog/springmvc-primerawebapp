@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.Size;
 
 @Entity
 @NamedQueries({
@@ -12,6 +13,7 @@ import javax.persistence.NamedQuery;
 public class Producto {
 	@Id
 	private Long id;
+	@Size(min=4)
 	private String nombre;
 	private String descripcion;
 	private Double precio;
@@ -23,6 +25,7 @@ public class Producto {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}

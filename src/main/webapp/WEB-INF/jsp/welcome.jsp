@@ -17,7 +17,7 @@
 <body>
 	<div class="jumbotron">
 		<h1>${saludo}</h1>
-		<p>${eslogan}</p>
+		<p>${user.password}</p>
 	</div>
 	<div class="container">
 	<a class="btn btn-primary" href='<c:url value="/productos"/>'>Productos</a>
