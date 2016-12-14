@@ -1,4 +1,4 @@
-package es.uma.informatica.springmvc.primerawebapp.service;
+package es.uma.informatica.springmvc.primerawebapp.service.impl;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 
 import es.uma.informatica.springmvc.primerawebapp.domain.Producto;
 import es.uma.informatica.springmvc.primerawebapp.repositories.ProductRepository;
+import es.uma.informatica.springmvc.primerawebapp.service.ProductService;
 
 @Service
 @Profile("default")
