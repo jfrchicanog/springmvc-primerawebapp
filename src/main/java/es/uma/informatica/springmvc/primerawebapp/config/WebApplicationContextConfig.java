@@ -194,11 +194,17 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 		return validator(); 
 	} 
 	
-	@Bean
+	@Bean("usuarios")
 	public List<Usuario> usuarios() {
 		return Arrays.asList(
 				new Usuario("pepe", "1234"), 
 				new Usuario("Manolo", "5678"));
+	}
+	
+	@Bean("usuarioSesion")
+	@SessionScope
+	public Usuario usuarioSesion() {
+		return new Usuario();
 	}
 } 
 	

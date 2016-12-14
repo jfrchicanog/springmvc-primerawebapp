@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +18,12 @@ import es.uma.informatica.springmvc.primerawebapp.domain.Usuario;
 public class LoginController {
 	
 	@Autowired
+	@Qualifier("usuarios")
 	private List<Usuario> usuarios;
+	
+	@Autowired
+	@Qualifier("usuarioSesion")
+	private Usuario usuarioSesion;
 	
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
@@ -28,7 +34,8 @@ public class LoginController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String loginPost (Model model, HttpServletRequest req, @ModelAttribute("usuario") Usuario usuario) {
 		if (usuarios.contains(usuario)) {
-			req.getSession().setAttribute("user", usuario);
+			usuarioSesion.setUser(usuario.getUser());
+			usuarioSesion.setPassword(usuario.getPassword());
 			return "redirect:/";
 		} else {
 			model.addAttribute("error", "Error de autenticación");
